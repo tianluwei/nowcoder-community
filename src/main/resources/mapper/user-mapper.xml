@@ -15,8 +15,9 @@
         select id,username,password,salt,email,type,status,activation_code,header_url,create_time from `user` where email=#{email}
     </select>
 
-    <insert id="insertUser" parameterType="User">
-        insert into `user` values(#{id},#{username},#{password},#{salt},#{email},#{type},#{status},#{activeCode},#{headUrl},#{createTime})
+<!--    keyProperty="id"指定把获取到的主键值注入到 Student（实体类） 的 id 属性。如果不加，默认不注入实体对象user。-->
+    <insert id="insertUser" parameterType="User" keyProperty="id">
+        insert into `user` values(#{id},#{username},#{password},#{salt},#{email},#{type},#{status},#{activationCode},#{headerUrl},#{createTime})
     </insert>
 
     <update id="updateStatus">

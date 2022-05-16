@@ -8,9 +8,14 @@ public class User {
     private String password;
     private String salt;
     private String email;
+
+//    0表示普通用户，1表示超级管理员，2表示版主
     private int type;
+
+//    0未激活，1已激活
     private int status;
-    private String activeCode;
+
+    private String activationCode;
     private String headerUrl;
     private Date createTime;
 
@@ -25,7 +30,7 @@ public class User {
         this.email = email;
         this.type = type;
         this.status = status;
-        this.activeCode = activeCode;
+        this.activationCode = activeCode;
         this.headerUrl = headUrl;
         this.createTime = createTime;
     }
@@ -86,12 +91,12 @@ public class User {
         this.status = status;
     }
 
-    public String getActiveCode() {
-        return activeCode;
+    public String getActivationCode() {
+        return activationCode;
     }
 
-    public void setActiveCode(String activeCode) {
-        this.activeCode = activeCode;
+    public void setActivationCode(String activationCode) {
+        this.activationCode = activationCode;
     }
 
     public String getHeaderUrl() {
@@ -120,7 +125,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", type=" + type +
                 ", status=" + status +
-                ", activeCode='" + activeCode + '\'' +
+                ", activeCode='" + activationCode + '\'' +
                 ", headUrl='" + headerUrl + '\'' +
                 ", createTime=" + createTime +
                 '}';

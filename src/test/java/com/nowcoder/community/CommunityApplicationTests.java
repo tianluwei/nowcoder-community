@@ -33,7 +33,7 @@ class CommunityApplicationTests {
         user.setEmail("28392829@qq.com");
         user.setType(1);
         user.setStatus(1);
-        user.setActiveCode("123");
+        user.setActivationCode("123");
         user.setHeaderUrl("123.com");
         user.setCreateTime(new Date());
         int i = userMapper.insertUser(user);
