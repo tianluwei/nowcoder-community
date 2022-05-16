@@ -10,6 +10,17 @@ public class LoginTicket {
     private int status;
     private Date expired;
 
+    public LoginTicket() {
+    }
+
+    public LoginTicket(int id, int userId, String ticket, int status, Date expired) {
+        this.id = id;
+        this.userId = userId;
+        this.ticket = ticket;
+        this.status = status;
+        this.expired = expired;
+    }
+
     public int getId() {
         return id;
     }

@@ -25,7 +25,7 @@ public class LoginController {
 
     private Logger logger= LoggerFactory.getLogger(LoginController.class);
 
-    // TODO: 2022/5/15 和@Bean方法名不一样能不能注入进来？？？
+    // TODO: 2022/5/15 和@Bean方法名不一样能不能注入进来？？？  事实证明，可以用类型注入。
     @Autowired
     Producer producer;
 
