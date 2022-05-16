@@ -22,7 +22,7 @@ public interface LoginTicketMapper {
             "<script>",
             "update `login_ticket` set status=#{status} where ticket=#{ticket}",
             "<if test=\"status!=0\">",
-            "and 1==1",
+            "and 1=1",
             "</if>",
             "</script>"
     })

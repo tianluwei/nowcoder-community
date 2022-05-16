@@ -2,8 +2,8 @@
 
 *问题的出现不是让你止步不前，而是为你指明方向。*
 
-
-###第一章：(5.7~)
+#####(5.7~)
+###第一章：
 1. 环境搭建
 	+ pom.xml中主要依赖有：spring-boot-starter-web(2.5.0)、spring-boot-starter-test、spring-boot-starter-thymeleaf、mysql-connection-java、mybatis-spring-boot-starter(2.1.4)、spring-boot-starter-mail(邮件服务)、commons-lang3(StringUtils)、kaptcha(2.3.2生成验证码)
 	+ application.properties
