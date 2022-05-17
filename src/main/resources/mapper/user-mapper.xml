@@ -4,31 +4,72 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nowcoder.community.dao.UserMapper">
     <select id="selectById" resultType="User">
-        select id,username,password,salt,email,type,status,activation_code,header_url,create_time from `user` where id=#{id}
+        select id,
+               username,
+               password,
+               salt,
+               email,
+               type,
+               status,
+               activation_code,
+               header_url,
+               create_time
+        from `user`
+        where id = #{id}
     </select>
 
     <select id="selectByName" resultType="User">
-        select id,username,password,salt,email,type,status,activation_code,header_url,create_time from `user` where username=#{username}
+        select id,
+               username,
+               password,
+               salt,
+               email,
+               type,
+               status,
+               activation_code,
+               header_url,
+               create_time
+        from `user`
+        where username = #{username}
     </select>
 
     <select id="selectByEmail" resultType="User">
-        select id,username,password,salt,email,type,status,activation_code,header_url,create_time from `user` where email=#{email}
+        select id,
+               username,
+               password,
+               salt,
+               email,
+               type,
+               status,
+               activation_code,
+               header_url,
+               create_time
+        from `user`
+        where email = #{email}
     </select>
 
-<!--    keyProperty="id"指定把获取到的主键值注入到 Student（实体类） 的 id 属性。如果不加，默认不注入实体对象user。-->
+    <!--    keyProperty="id"指定把获取到的主键值注入到 Student（实体类） 的 id 属性。如果不加，默认不注入实体对象user。-->
     <insert id="insertUser" parameterType="User" keyProperty="id">
-        insert into `user` values(#{id},#{username},#{password},#{salt},#{email},#{type},#{status},#{activationCode},#{headerUrl},#{createTime})
+        insert into `user`
+        values (#{id}, #{username}, #{password}, #{salt}, #{email}, #{type}, #{status}, #{activationCode}, #{headerUrl},
+                #{createTime})
     </insert>
 
     <update id="updateStatus">
-        update `user` set status=#{status} where id=#{id}
+        update `user`
+        set status=#{status}
+        where id = #{id}
     </update>
 
     <update id="updateHeader">
-        update `user` set header_url=#{headerUrl} where id=#{id}
+        update `user`
+        set header_url=#{headerUrl}
+        where id = #{id}
     </update>
 
     <update id="updatePassword">
-        update `user` set password=#{password} where id=#{id}
+        update `user`
+        set password=#{password}
+        where id = #{id}
     </update>
 </mapper>

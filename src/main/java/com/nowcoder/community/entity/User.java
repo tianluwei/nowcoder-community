@@ -9,10 +9,10 @@ public class User {
     private String salt;
     private String email;
 
-//    0表示普通用户，1表示超级管理员，2表示版主
+    //    0表示普通用户，1表示超级管理员，2表示版主
     private int type;
 
-//    0未激活，1已激活
+    //    0未激活，1已激活
     private int status;
 
     private String activationCode;

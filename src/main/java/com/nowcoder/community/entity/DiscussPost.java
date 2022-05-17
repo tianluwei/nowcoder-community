@@ -8,10 +8,10 @@ public class DiscussPost {
     private String title;
     private String content;
 
-//    type=0普通   type=1置顶
+    //    type=0普通   type=1置顶
     private int type;
 
-//    status=0正常   1精华   2拉黑
+    //    status=0正常   1精华   2拉黑
     private int status;
 
     private Date createTime;

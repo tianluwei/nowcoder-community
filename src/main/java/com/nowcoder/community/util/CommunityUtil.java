@@ -8,12 +8,12 @@ import java.util.UUID;
 
 public class CommunityUtil {
 
-    public static String generateUUID(){
-        return UUID.randomUUID().toString().replaceAll("-","");
+    public static String generateUUID() {
+        return UUID.randomUUID().toString().replaceAll("-", "");
     }
 
-    public static String md5(String key){
-        if(StringUtils.isBlank(key)){
+    public static String md5(String key) {
+        if (StringUtils.isBlank(key)) {
             return null;
         }
         return DigestUtils.md5DigestAsHex(key.getBytes(StandardCharsets.UTF_8));

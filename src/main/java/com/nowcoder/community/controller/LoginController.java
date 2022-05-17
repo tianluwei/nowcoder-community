@@ -110,34 +110,28 @@ public class LoginController implements CommunityConstant {
         }
         int expiredTime = rememberme ? REMEMBER_EXPIRED_SECONDS : DEFAULT_EXPIRED_SECONDS;
         Map<String, Object> map = userService.login(username, password, expiredTime);
-        if(map.containsKey("ticket")){
-            Cookie cookie=new Cookie("ticket",(String)map.get("ticket"));
+        if (map.containsKey("ticket")) {
+            Cookie cookie = new Cookie("ticket", (String) map.get("ticket"));
             cookie.setMaxAge(expiredTime);
 //            cookie设置的有效路径是contextPath所以之后不管访问那个，都会把cookie这条数据携带发给服务器。
             cookie.setPath(contextPath);
             response.addCookie(cookie);
             return "redirect:/index";
-        }else{
-            model.addAttribute("usernameMsg",map.get("usernameMsg"));
-            model.addAttribute("passwordMsg",map.get("passwordMsg"));
+        } else {
+            model.addAttribute("usernameMsg", map.get("usernameMsg"));
+            model.addAttribute("passwordMsg", map.get("passwordMsg"));
 //            todo 这样写可以吗？而不是forward：/site/login   这样写经过一个controller还能不能把model中的值传过去
 //            看样子（return /login）这样不行的哦
             return "/site/login";
         }
     }
 
-    @RequestMapping(path = "/logout",method = RequestMethod.GET)
+    @RequestMapping(path = "/logout", method = RequestMethod.GET)
     public String logout(@CookieValue("ticket") String ticket) {
         userService.logout(ticket);
         return "redirect:/login";
     }
     // TODO: 2022/5/17 忘记密码实现 ？？？
-
-
-
-
-
-
 
 
     //    测试cookie，cookie会先从服务端发给客户端，然后客户端再请求时会携带cookie

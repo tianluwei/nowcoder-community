@@ -23,25 +23,25 @@ public class HomeController {
     @Autowired
     DiscussPostService discussPostService;
 
-    @RequestMapping(path = "/index",method = RequestMethod.GET)
-    public String index(Model model, Page page){
+    @RequestMapping(path = "/index", method = RequestMethod.GET)
+    public String index(Model model, Page page) {
 //        这里的page在方法调用前 SpringMVC会自动实例化。
         page.setRows(discussPostService.findDiscussPostRows(0));
         page.setPath("/index");
 
 //        System.out.println("我将要调getoffset了哦！");
         List<DiscussPost> discussPosts = discussPostService.findDiscussPosts(0, page.getOffset(), page.getLimit());
-        List<Map<String,Object>> list=new ArrayList<>();
-        if (discussPosts!=null) {
-            for(DiscussPost post:discussPosts){
-                Map<String,Object> map=new HashMap<>();
-                map.put("post",post);
+        List<Map<String, Object>> list = new ArrayList<>();
+        if (discussPosts != null) {
+            for (DiscussPost post : discussPosts) {
+                Map<String, Object> map = new HashMap<>();
+                map.put("post", post);
                 User user = userService.findUserById(post.getUserId());
-                map.put("user",user);
+                map.put("user", user);
                 list.add(map);
             }
         }
-        model.addAttribute("list",list);
+        model.addAttribute("list", list);
         // FIXME: 2022/5/17 这里记住，要跳转到classpath下的/index。这里不加也是没关系的，but why？
 //        它的里面做了什么事情，才能这样就跳转。
         return "index";

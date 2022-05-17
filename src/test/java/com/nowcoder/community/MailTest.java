@@ -24,23 +24,23 @@ public class MailTest {
     private LoginTicketMapper loginTicketMapper;
 
     @Test
-    public void mailSend(){
-        mailClient.sendMail("nowcodertlw@sina.com","hello man","be kind to yourself,yes!");
+    public void mailSend() {
+        mailClient.sendMail("nowcodertlw@sina.com", "hello man", "be kind to yourself,yes!");
     }
 
     @Test
-    public void HTMLSend(){
-        Context context=new Context();
-        context.setVariable("username","KOBE");
+    public void HTMLSend() {
+        Context context = new Context();
+        context.setVariable("username", "KOBE");
         String content = templateEngine.process("/mail/demo", context);
         System.out.println(content);
 
-        mailClient.sendMail("nowcodertlw@sina.com","HTML",content);
+        mailClient.sendMail("nowcodertlw@sina.com", "HTML", content);
     }
 
     @Test
-    public void loginTicketTest(){
-        LoginTicket loginTicket=new LoginTicket(1,11,"haha",0,new Date());
+    public void loginTicketTest() {
+        LoginTicket loginTicket = new LoginTicket(1, 11, "haha", 0, new Date());
 //        int i = loginTicketMapper.insertLoginTicket(loginTicket);
 //        System.out.println(i);
         LoginTicket loginTicket1 = loginTicketMapper.selectByTicket("haha");

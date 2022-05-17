@@ -25,8 +25,8 @@ class CommunityApplicationTests {
     }
 
     @Test
-    public void test(){
-        User user=new User();
+    public void test() {
+        User user = new User();
         user.setUsername("haha");
         user.setPassword("123");
         user.setSalt("123");
@@ -38,11 +38,11 @@ class CommunityApplicationTests {
         user.setCreateTime(new Date());
         int i = userMapper.insertUser(user);
         System.out.println(i);
-        userMapper.updateHeader(150,"2424.org");
+        userMapper.updateHeader(150, "2424.org");
     }
 
     @Test
-    public void test1(){
+    public void test1() {
 //        List<DiscussPost> discussPosts = discussPostMapper.selectDiscussPosts(0, 0, 10);
 //        for(DiscussPost i:discussPosts){
 //            System.out.println(i);

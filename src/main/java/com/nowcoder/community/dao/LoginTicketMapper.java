@@ -10,7 +10,7 @@ public interface LoginTicketMapper {
     @Insert({"insert into `login_ticket`(user_id,ticket,status,expired)",
             "values (#{userId},#{ticket},#{status},#{expired})"
     })
-    @Options(useGeneratedKeys = true,keyProperty = "id")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
     int insertLoginTicket(LoginTicket loginTicket);
 
 
@@ -26,5 +26,5 @@ public interface LoginTicketMapper {
             "</if>",
             "</script>"
     })
-    int updateTicket(String ticket,int status);
+    int updateTicket(String ticket, int status);
 }
