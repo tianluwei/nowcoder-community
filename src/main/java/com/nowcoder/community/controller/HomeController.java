@@ -42,6 +42,8 @@ public class HomeController {
             }
         }
         model.addAttribute("list",list);
+        // FIXME: 2022/5/17 这里记住，要跳转到classpath下的/index。这里不加也是没关系的，but why？
+//        它的里面做了什么事情，才能这样就跳转。
         return "index";
 
     }
