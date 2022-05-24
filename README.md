@@ -13,7 +13,11 @@
 + *Something make you feel not good,but it's right.you still do it anyway.*
 + *会汇报比会干活同样重要。*
 + *聪明就是被更多人讨厌*
-+ *困难的事才有价值*
++ *困难的事才有价值。真的东西从来都不曾消逝，虚假的东西从来都不存在。*
++ *All you have is now.*
++ *Doing is better than perfect.*
++ *我不是每场比赛都状态很好，但每场比赛我都会全力以赴。积极，努力总会有好的事情发生。（先做起来才有感觉。做的越多你的爱也就越多。）*
++ 
 
 #####(5.7~)
 简介【参考其他的project】【技术栈】
