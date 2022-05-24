@@ -22,7 +22,7 @@ public class AlphaInterceptor implements HandlerInterceptor {
         return true;
     }
 
-    //    在controller之后运行
+    //    在controller之后运行，模板之前。
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         logger.debug("postHandle" + handler.toString());

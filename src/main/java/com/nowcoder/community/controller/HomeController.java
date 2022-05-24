@@ -25,6 +25,7 @@ public class HomeController {
 
     @RequestMapping(path = "/index", method = RequestMethod.GET)
     public String index(Model model, Page page) {
+        System.out.println("这是indexController");
 //        这里的page在方法调用前 SpringMVC会自动实例化。
         page.setRows(discussPostService.findDiscussPostRows(0));
         page.setPath("/index");
@@ -43,7 +44,7 @@ public class HomeController {
         }
         model.addAttribute("list", list);
         // FIXME: 2022/5/17 这里记住，要跳转到classpath下的/index。这里不加也是没关系的，but why？
-//        它的里面做了什么事情，才能这样就跳转。
+//        我想知道的是，DispatcherServlet做了什么？ 它的里面做了什么事情，才能这样就跳转。
         return "index";
 
     }

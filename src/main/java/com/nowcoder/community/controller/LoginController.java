@@ -116,12 +116,14 @@ public class LoginController implements CommunityConstant {
 //            cookie设置的有效路径是contextPath所以之后不管访问那个，都会把cookie这条数据携带发给服务器。
             cookie.setPath(contextPath);
             response.addCookie(cookie);
+//            这里必须是redirect:/index,因为这样是从Controller中跳转的，不然直接跳转页面，页面缺数据，会报错。
             return "redirect:/index";
         } else {
             model.addAttribute("usernameMsg", map.get("usernameMsg"));
             model.addAttribute("passwordMsg", map.get("passwordMsg"));
-//            todo 这样写可以吗？而不是forward：/site/login   这样写经过一个controller还能不能把model中的值传过去
-//            看样子（return /login）这样不行的哦
+//            todo 这样写可以吗？而不是forward：/site/login   这样写经过一个controller还能不能把model中的值传过去。？？？
+            // TODO: 2022/5/20 forward:是经过控制器吗，还是直接跳转页面，感觉是跳转页面了。
+//            看样子（return /login）这样不行的哦。肯定的啊，这样啥也不是，跳转控制器必须redirect:/login
             return "/site/login";
         }
     }
@@ -131,7 +133,66 @@ public class LoginController implements CommunityConstant {
         userService.logout(ticket);
         return "redirect:/login";
     }
-    // TODO: 2022/5/17 忘记密码实现 ？？？
+    // TODO: 2022/5/17 忘记密码实现 ？？？   已完成，真的牛逼！
+
+    @RequestMapping(path = "/forget", method = RequestMethod.GET)
+    public String forget() {
+        return "/site/forget";
+    }
+
+    @RequestMapping(path = "/forget", method = RequestMethod.POST)
+    public String forget(String email, String code, String newPassword, Model model, HttpSession session) {
+//        旧密码应该再验证一下，为了安全性，但是我先把它实现了再说。但其实也不用验证了，因为能收到邮件，基本上就是真的。但是有必要
+//        String verifyCode = (String) model.getAttribute("verifyCode");
+        String verifyCode = (String) session.getAttribute("verifyCode");
+        System.out.println("从model中拿到生成的验证码是：" + verifyCode + "|||输入的验证码是：" + code);
+        if (!code.equals(verifyCode)) {
+            model.addAttribute("codeMsg", "您的验证码不正确，请重新输入！");
+            model.addAttribute("email", email);
+            return "/site/forget";
+        }
+        if (newPassword == null) {
+            model.addAttribute("email", email);
+            model.addAttribute("code", code);
+            model.addAttribute("passwordMsg", "新密码不能为空，请重新输入！");
+            return "/site/forget";
+        }
+        userService.forget(email, newPassword);
+
+        return "redirect:/login";
+    }
+
+    @RequestMapping(path = "/verify")
+    public String verify(String email, Model model, HttpSession session) {
+        Map<String, Object> map = userService.verify(email);
+        model.addAttribute("email", email);
+        if (map.containsKey("emailMsg")) {
+            model.addAttribute("emailMsg", map.get("emailMsg"));
+        } else {
+            model.addAttribute("emailMsg", "邮件已成功发送，请输入您邮箱中的验证码！");
+//            model.addAttribute("verifyCode",map.get("verifyCode"));
+            session.setAttribute("verifyCode", map.get("verifyCode"));
+        }
+        System.out.println("verify获取验证码一次，可能有值也可能没值。");
+        return "/site/forget";
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     //    测试cookie，cookie会先从服务端发给客户端，然后客户端再请求时会携带cookie

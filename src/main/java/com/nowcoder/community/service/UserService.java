@@ -11,9 +11,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -163,6 +165,32 @@ public class UserService implements CommunityConstant {
 
     public LoginTicket findLoginTicket(String ticket) {
         return loginTicketMapper.selectByTicket(ticket);
+    }
+
+    public int updateHeaderUrl(int userId,String headerUrl){
+        return userMapper.updateHeader(userId,headerUrl);
+    }
+
+//    忘记密码发送邮件验证
+    public Map<String,Object> verify(String email){
+        Map<String,Object> map=new HashMap<>();
+        User user = userMapper.selectByEmail(email);
+        if(user==null){
+            map.put("emailMsg","该邮箱未注册过，请重新输入有效邮箱！");
+            return map;
+        }
+        String verifyCode=CommunityUtil.generateUUID().substring(0,6);
+        map.put("verifyCode",verifyCode);
+        mailClient.sendMail(user.getEmail(),"重置密码验证","这是您的重置密码验证码:"+verifyCode+"，请妥善保管，不要泄漏。如果不是本人操作忽略本邮件！");
+        return map;
+    }
+
+//    验证码和新密码验证没问题，开始改密码。
+    public int forget(String email,String newPassword){
+        User user = userMapper.selectByEmail(email);
+        newPassword = CommunityUtil.md5(newPassword + user.getSalt());
+
+        return userMapper.updatePassword(user.getId(),newPassword);
     }
 
 }

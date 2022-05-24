@@ -13,11 +13,21 @@ public class CookieUtil {
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals(name)) {
-                    System.out.println(cookie.getDomain());
+//                    我在这里打印了一下，但结果为null
+//                    System.out.println(cookie.getDomain());
                     return cookie.getValue();
                 }
             }
         }
         return null;
+    }
+
+    public static void removeExpiredCookie(HttpServletRequest request){
+        Cookie[] cookies = request.getCookies();
+        for(Cookie cookie:cookies){
+            if(cookie.getName().equals("ticket")){
+                cookie.setMaxAge(0);
+            }
+        }
     }
 }
