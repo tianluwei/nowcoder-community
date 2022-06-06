@@ -16,6 +16,7 @@ public class LoginRequiredInterceptor implements HandlerInterceptor {
 
     @Autowired
     HostHolder hostHolder;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if(handler instanceof HandlerMethod){
