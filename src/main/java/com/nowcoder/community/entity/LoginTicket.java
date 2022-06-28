@@ -5,6 +5,8 @@ import java.util.Date;
 public class LoginTicket {
     private int id;
     private int userId;
+
+//    todo 这个ticket是啥，我怎么忘了？？？
     private String ticket;
     //    0表示有效，1表示失效
     private int status;

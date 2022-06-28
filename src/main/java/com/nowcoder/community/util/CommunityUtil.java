@@ -23,7 +23,7 @@ public class CommunityUtil {
     }
 
 
-    public static String getJsonString(int code, String msg, Map<String,Object> map){
+    public static String getJsonString(int code  , String msg, Map<String,Object> map){
         JSONObject json=new JSONObject();
         json.put("code",code);
         json.put("msg",msg);
@@ -49,5 +49,7 @@ public class CommunityUtil {
         map.put("age",1);
         String ok = CommunityUtil.getJsonString(0, "ok", map);
         System.out.println(ok);
+
+        System.out.println(generateUUID());
     }
 }
