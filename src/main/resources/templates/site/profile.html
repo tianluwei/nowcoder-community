@@ -87,6 +87,7 @@
                 <div class="media-body">
                     <h5 class="mt-0 text-warning">
                         <span th:utext="${user.username}">nowcoder</span>
+<!--                        fixme 为什么entityId是user.id，因为点赞的实体是人，而entityId也就是人的id-->
                         <input type="hidden" id="entityId" th:value="${user.id}">
                         <button type="button" th:class="|btn ${hasFollowed?'btn-secondary':'btn-info'} btn-sm float-right mr-5 follow-btn|"
                                 th:text="${hasFollowed?'已关注':'关注TA'}" th:if="${loginUser!=null&& loginUser!=user.id}">关注TA</button>

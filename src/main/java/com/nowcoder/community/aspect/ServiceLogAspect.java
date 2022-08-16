@@ -30,6 +30,12 @@ public class ServiceLogAspect {
     public void before(JoinPoint joinPoint){
 //        用户[ip.ip.ip.ip],在[时间]访问了[com.nowcoder.community.service.xxx()]
         ServletRequestAttributes attributes =(ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+
+//        因为不是controller的地方调用了service，所以这里会报错。
+//        if(attributes==null){
+//            return ;
+//        }
+
         HttpServletRequest request = attributes.getRequest();
         String ip = request.getRemoteHost();
         String now  = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());

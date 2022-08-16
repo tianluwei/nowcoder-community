@@ -150,7 +150,7 @@ public class UserService implements CommunityConstant {
             return map;
         }
         if (user.getStatus() == 0) {
-            map.put("usernameMsg", "该账号未激活，请您激活后再使用!");
+            map.put("usenameMsg", "该账号未激活，请您激活后再使用!");
             return map;
         }
         String md5Password = CommunityUtil.md5(password + user.getSalt());
@@ -216,7 +216,9 @@ public class UserService implements CommunityConstant {
         User user = userMapper.selectByEmail(email);
         newPassword = CommunityUtil.md5(newPassword + user.getSalt());
 
-        return userMapper.updatePassword(user.getId(),newPassword);
+        int rows=userMapper.updatePassword(user.getId(),newPassword);
+        clearCache(user.getId());
+        return rows;
     }
 
     public User findUserByName(String username){

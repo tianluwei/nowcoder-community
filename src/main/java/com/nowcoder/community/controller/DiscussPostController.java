@@ -56,6 +56,9 @@ public class DiscussPostController implements CommunityConstant {
         discussPost.setUserId(user.getId());
         discussPost.setCreateTime(new Date());
 
+        HashMap map=new HashMap();
+
+
         discussPostService.addDiscussPost(discussPost);
 //        报错的情况，将来统一处理。
         return CommunityUtil.getJsonString(0,"发布帖子成功！");
@@ -63,13 +66,13 @@ public class DiscussPostController implements CommunityConstant {
 
     @RequestMapping(path = "/detail/{discussPostId}",method = RequestMethod.GET)
     public String getDiscussPost(@PathVariable("discussPostId")int id, Model model, Page page){
-//        写在这里的参数page会自动放到model（request）域中。
+//        写在这里的参数page会自动放到model（request）域中。并且先初始化好，放到request域中。
         DiscussPost post = discussPostService.findDiscussPostById(id);
         model.addAttribute("post",post);
 
 //        它是一个请求调一次，model相当于是一个request。
         User user = userService.findUserById(post.getUserId());
-        model.addAttribute(user);
+        model.addAttribute("user",user);
 
 //        点赞数量
         long likeCount=likeService.findEntityLikeCount(ENTITY_TYPE_POST,id);

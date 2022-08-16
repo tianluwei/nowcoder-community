@@ -137,6 +137,7 @@ public class LoginController implements CommunityConstant {
             model.addAttribute("codeMsg", "验证码不正确,请尝试重新输入！");
             return "/site/login";
         }
+
         int expiredTime = rememberme ? REMEMBER_EXPIRED_SECONDS : DEFAULT_EXPIRED_SECONDS;
         Map<String, Object> map = userService.login(username, password, expiredTime);
         if (map.containsKey("ticket")) {
@@ -174,7 +175,7 @@ public class LoginController implements CommunityConstant {
 //        旧密码应该再验证一下，为了安全性，但是我先把它实现了再说。但其实也不用验证了，因为能收到邮件，基本上就是真的。但是有必要
 //        String verifyCode = (String) model.getAttribute("verifyCode");
         String verifyCode = (String) session.getAttribute("verifyCode");
-        System.out.println("从model中拿到生成的验证码是：" + verifyCode + "|||输入的验证码是：" + code);
+        System.out.println("从session中拿到生成的验证码是：" + verifyCode + "|||输入的验证码是：" + code);
         if (!code.equals(verifyCode)) {
             model.addAttribute("codeMsg", "您的验证码不正确，请重新输入！");
             model.addAttribute("email", email);
@@ -195,6 +196,7 @@ public class LoginController implements CommunityConstant {
     @RequestMapping(path = "/verify")
     public String verify(String email, Model model, HttpSession session) {
         Map<String, Object> map = userService.verify(email);
+//        好像不用加下面这个，所以直接取掉吧，这个是要的，要在页面显示
         model.addAttribute("email", email);
         if (map.containsKey("emailMsg")) {
             model.addAttribute("emailMsg", map.get("emailMsg"));

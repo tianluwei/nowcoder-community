@@ -13,6 +13,7 @@ import java.lang.reflect.Method;
 
 //你必须愿意牺牲，
 // 你必须孤注一掷，你必须能忍受黑暗，孤独寂寞，你才能成功，你才会快乐。
+//不顾一切的决心
 
 @Component
 public class LoginRequiredInterceptor implements HandlerInterceptor {

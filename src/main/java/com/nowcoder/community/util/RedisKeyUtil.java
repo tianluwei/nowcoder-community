@@ -19,19 +19,19 @@ public class RedisKeyUtil {
         return PREFIX_ENTITY_LIKE+SPLIT+entityType+ SPLIT+entityId;
     }
 
-//    某个用户的赞
+//    某个用户的赞,某个target用户获得的赞
 //    like:user:userId -> int
     public static String getUserLikeKey(int userID){
         return PREFIX_USER_LIKE+SPLIT+userID;
     }
 
-//    某个用户关注的实体
+//    某个用户关注的实体 followee:152:3
 //    followee:userId:entityType  ->zset(entityId,now)
     public static String getFolloweeKey(int userId,int entityType){
         return PREFIX_FOLLOWEE+SPLIT+userId+SPLIT+entityType;
     }
 
-//    某个用户拥有的粉丝
+//    某个用户拥有的粉丝  follower:3:152
 //    follower:entityType:entityId  ->zset(userId,now)
     public static String getFollowerKey(int entityType,int entityId){
         return PREFIX_FOLLOWER+SPLIT+entityType+SPLIT+entityId;
@@ -47,7 +47,7 @@ public class RedisKeyUtil {
         return PREFIX_TICKET+SPLIT+ticket;
     }
 
-//    用户
+//    用户  这是在findUserById的时候加的一层缓存。
     public static String getUserKey(int userId){
         return PREFIX_USER+SPLIT+userId;
     }

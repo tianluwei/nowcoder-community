@@ -12,6 +12,8 @@
         from_id,to_id,conversation_id,content,status,create_time
     </sql>
 
+<!--    就是conversation一样的，conversationId一样的，选一个出来展示，（最大的那个）。from_id!=1是什么意思？-->
+<!--    1是SYSTEM，系统通知，而这里只有私信。-->
     <select id="selectConversations" resultType="Message">
         select <include refid="selectFields"></include>
         from message
@@ -79,4 +81,34 @@
             #{id}
         </foreach>
     </update>
+
+    <select id="selectLatestNotice" resultType="Message">
+        select <include refid="selectFields"></include>
+        from message
+        where id in(
+            select max(id) from message
+            where status!=2
+            and from_id=1
+            and to_id=#{userId}
+            and conversation_id=#{topic}
+        )
+    </select>
+
+    <select id="selectNoticeCount" resultType="int">
+        select count(id) from message
+        where status!=2
+        and from_id=1
+        and to_id=#{userId}
+        and conversation_id=#{topic}
+    </select>
+
+    <select id="selectNoticeUnreadCount" resultType="int">
+        select count(id) from message
+        where status=0
+        and from_id=1
+        and to_id=#{userId}
+        <if test="topic!=null">
+            and conversation_id=#{topic}
+        </if>
+    </select>
 </mapper>

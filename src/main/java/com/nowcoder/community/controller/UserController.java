@@ -92,13 +92,14 @@ public class UserController implements CommunityConstant {
         User user = hostHolder.getUser();
         String headerUrl = domain + contextPath + "/user/header/" + fileName;
         userService.updateHeaderUrl(user.getId(), headerUrl);
-        System.out.println("跳转到index页面看看能不能打印出列表");
+//        System.out.println("跳转到index页面看看能不能打印出列表");
 
-        // TODO: 重要：2022/5/20 这样写会直接跳转index页面，而不是经过/index请求。
+        // TODO: 重要：2022/5/20 /index这样写会直接跳转index页面，而不是经过/index请求mapping。
         return "redirect:/index";
     }
 
 //    获取头像请求
+//    fixme 这个是干嘛的，在哪获取的？？？  获取每个用户（自己or帖子发布人）的头像，都要经过这个mapping，写一下。
     @RequestMapping(path = "/header/{fileName}", method = RequestMethod.GET)
     public void header(@PathVariable("fileName") String fileName, HttpServletResponse response) {
         fileName = upload + "/" + fileName;
