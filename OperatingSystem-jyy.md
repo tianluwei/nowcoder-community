@@ -134,7 +134,7 @@ yw：复制一个单词。
 
 p：粘贴。
 
-
+https://s.sdncimcin.xyz/link/WbQHEP1flJto9KZP?sub=1
 
 :set ic：（ignore case）忽略大小写。主要用来查找。
 
@@ -176,3 +176,26 @@ i1<ESC>   		q1  yyp<C-a>  q98@1：在文章中生成1，到100的数字。【rec
 
 有多少种方法回到第一行开头：gg、3k0、H。
 
+
+
+.vimrc配置文件中，syntax on  开启语法高亮。
+
+less is more。集中、专注之后看似你得到的少，但其实你得到的更多。
+
+less中：&是过滤  想要的字符。
+
+
+
+编译：gcc hello.c -o hello
+
+反编译：objdump -d hello > output
+
+统计时间：time ./myprog < data |tee output
+
+追加append：<<
+
+用root执行整条命令：#
+
+统计磁盘使用情况：du -sc /usr/share/* | sort -nr | more
+
+统计代码行数：find . | grep '\.c$\|\.h$' | xargs wc -l
