@@ -1,5 +1,7 @@
 1、ssh root@47.100.196.80
 
+mysql -u root -p
+
 2、vim：
 
 dw：删除，直到下一个单词起始处；
@@ -134,8 +136,6 @@ yw：复制一个单词。
 
 p：粘贴。
 
-https://s.sdncimcin.xyz/link/WbQHEP1flJto9KZP?sub=1
-
 :set ic：（ignore case）忽略大小写。主要用来查找。
 
 :set noic：不忽略大小写。
@@ -199,3 +199,39 @@ less中：&是过滤  想要的字符。
 统计磁盘使用情况：du -sc /usr/share/* | sort -nr | more
 
 统计代码行数：find . | grep '\.c$\|\.h$' | xargs wc -l
+
+寻找合适的程序来打开文件：xdg-open。（macOS：open）
+
+
+
+把cd1改成curl，把wd1改成wget。
+
+
+
+$0：是脚本名称。（只有以bash file.sh 启动时才会是脚本的名称。）
+
+$?：是上个脚本的错误代码。（返回值）
+
+$_：会获取上条命令的最后一个参数。
+
+!!：执行命令权限不够，sudo !!。可以执行上一条命令。
+
+**foo=$(ls)：把ls的执行结果，保存在变量foo中。**
+
+echo "haha $(pwd)"：pwd的执行结果作为输出的一部分。
+
+进程替换（process substitution）：cat <(ls) <(ls ..) 会连续将ls和ls ..的结果输出。
+
+​	ls会将输出放到临时文件(/dev/fd/63，和/dev/fd/62)中，然后把两个文件连接起来。
+
+$#：代表给定参数的个数。
+
+$$：代表pid。
+
+$@：可以展开为所有的参数。
+
+2>：重定向标准错误流。
+
+-ne：比较运算符。（non equal，不等于）
+
+ls *.sh   查看所有的sh后缀文件。
