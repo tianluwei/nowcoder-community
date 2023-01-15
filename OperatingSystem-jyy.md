@@ -206,6 +206,9 @@ less中：&是过滤  想要的字符。
 
 把cd1改成curl，把wd1改成wget。
 
+安装tldr：yum -y install npm
+npm install -g tldr（有可能报错，报错则再执行一次）。安装成功后，第一次执行会比较慢
+
 
 
 $0：是脚本名称。（只有以bash file.sh 启动时才会是脚本的名称。）
@@ -235,3 +238,51 @@ $@：可以展开为所有的参数。
 -ne：比较运算符。（non equal，不等于）
 
 ls *.sh   查看所有的sh后缀文件。
+
+ls project?   列出1个字符，1个特定的项。
+
+convert image.{png,jpg} image.npg    正则表达式{}代表边界，最小是png，最大是jpg。或
+
+mkdir {a,b}/{a..f}  在ab下建a、b、c、d、e、f 文件夹。
+
+diff <(ls foo) <(ls bar) 查看两个文件夹下文件有什么不同。
+
+#!/usr/bin/python  (sharp bang)shell通过它了解怎么运行这个程序。shell用首行识别到，需要用python解释器运行这个程序。
+
+#!/usr/bin/env python  会在环境变量那些路径中找Python 二进制文件。接着执行，用它去解读这个脚本。
+
+test   -f  命令：作比较。 【-f 查询当前文件是否存在。】
+
+tldr（too long don't read）命令，man的简单版，会给出一些示例。
+
+Bash中：ctrl+w删除最后一个单词。ctrl+u从当前删除到当前行的第一个位置。ctrl+a回到当前行第一个位置。ctrl+e回到当前行的末尾位置。ctrl+k删除到当前末尾位置。
+
+pstree：查看进程树。
+
+lsof：（list open file）查看打开的文件。
+
+netstat -lntp：check what process is listening。
+
+ss -plat：同上。（for TCP，add -u for UDP。）
+
+lsof -iTCP。（-sTCP）用途同上。
+
+lsof/fuser：for open sockets and files。
+
+w/uptime：see how long the system has been running。
+
+alias：给命令做个快捷键（换个名字）。shortcuts。例如：alias ll ='ls -latr'。创建alias ll。
+
+find . -name src -type d：在当前目录中递归，寻找名叫src的文件夹。
+
+命令行设计哲学：看起来什么都没发生，就是返回0，就是有事发生。
+
+find . -name "*.tmp" -exec rm {} \;	find .tmp文件并执行rm操作。
+
+ctrl+R：backward search。倒序搜索。
+
+fish：the friendly interactive shell。这个非常好用，建议试试。
+
+tree：查看当前文件目录。而不用递归。
+
+tldr：https://tldr.ostera.io/。非常好用。
