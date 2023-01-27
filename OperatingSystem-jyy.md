@@ -286,3 +286,17 @@ fish：the friendly interactive shell。这个非常好用，建议试试。
 tree：查看当前文件目录。而不用递归。
 
 tldr：https://tldr.ostera.io/。非常好用。
+
+
+
+初始化数据库：mysqld --initialize --user=root
+
+启动数据库：systemctl start mysqld
+
+
+
+vim ：[:help command]，查看command的说明。
+
+
+
+https://www.liaoxuefeng.com/wiki/1016959663602400/1017106984190464
