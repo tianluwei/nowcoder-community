@@ -120,7 +120,7 @@ o ：将在光标的下方打开新的一行并进入插入模式。
 
 O ：将在光标的下方打开新的一行并进入插入模式。
 
-a：将可在光标之后插入文本。
+a：将可在光标之后插入文本。append
 
 A：可以在光标所在行的行末之后插入文本。
 
@@ -295,8 +295,198 @@ tldr：https://tldr.ostera.io/。非常好用。
 
 
 
-vim ：[:help command]，查看command的说明。
+### **第3讲vim** ：[:help :command]，或者[:help command]（注意:命令和normal模式下不同），查看command的说明。
+
+:sp打开两个窗口，方便去看文件的不同部分。一个buffer可以同时被零后多个window打开。
+
+:qa退出所有的window
+
+ctrl+wj向下跳转窗口
+
+ctrl+wk向上跳转窗口
+
+ctrl+d向下跳转多少行（默认半屏）。ctrl+u向上，ctrl+f向下。
+
+:tabnew打开一个新的tab
+
+gt从一个tab跳转到另一个tab
+
+w向后跳转一个单词；b向前跳转一个单词。e跳转到下一个单词末尾。(backward)（u->undo撤销）（ctrl+r->redo重做）
+
+0跳转到行首。$跳转到行末。^跳转到行首第1个非空白字符。
+
+fo跳转到右边的第一个字母o（first，第一个）【find】
+
+Fo跳转到左边离o最近的位置
+
+td跳转到右边第一个字母d左边。
+
+Td跳转到右边第一个字母d右边。（末尾tail）【to】
+
+dw向后删除一个单词。db向前删除一个单词，删除到前一个单词。de删除到一个单词的末尾（可以从中间开始）。
+
+c（change）删除并插入。c2w
+
+y复制。（yank，提取，拉拽）
+
+vim的复制粘贴默认不是操作系统的复制粘贴。
+
+~改变字符的大小写。
+
+4w、4j、4e、4b。
+
+4dd删除4行。4dw删除4个单词。
+
+:set nu设置行数。:set rnu设置相对行数。
+
+a（around）包含、i（inside）【vim修饰符】
+
+c2w改变两个单词。删除两个单词并插入。
+
+ci[改变[ ]里面的内容。ci'改变单引号里面的内容。
+
+di(删除()里面的内容。
+
+.会重复之前的编辑命令。
+
+### **第4讲**数据整理Data Wrangling
+
+journalctl查看系统日志。
+
+把日志特定字段前面的全丢掉：cat ssh.log |sed 's/.*sshd//'|less
+
+**.任意字符。*零次或多次。+一次或多次。[]匹配多种字符中的一种。?一次或0次。在+或*后面加?表示非贪心匹配。**
+
+echo aab|sed 's/[ab]//'默认只匹配一次，最前面的。
+
+echo aab|sed 's/[ab]//g'。尽可能多匹配。（可能是global）
+
+echo bafafafbbbaaavab|sed 's/[ab]//g'。移除所有的a和b，只剩下fffv
+
+ echo babababa|sed -E 's/(ba)*//g' 把连在一起的ba全部移除掉。
+
+sed要加-E，因为sed很老了，它只支持很旧版本的正则表达式。加上-E就会用一套支持更多的更现代的语法。如果没有-E，就要在括号前加\，来告诉它使用特殊含义的括号。例如：echo babababa|sed 's/\(ba\)*//g'。
+
+echo abcababc|sed -E 's/(ab|bc)//g'。移除所有（g）的ab或bc。
+
+Capture group捕获组。( )	捕获组编号的方法：\2。可以这样用： cat test.log |sed -E 's/1月 [0-9]+ [0-9:]+ [a-z|0-9]+ (sshd)\[([0-9]+)\]: (Connection closed by|fatal: Read from socket failed: Connection reset by peer)/\2/'
+
+uniq输出去重后的输入。uniq -c输出重复行的次数。
+
+sort -nk1,1排序。-n数值排序，-k1允许你在输入中选中空白字符分割的一列作为排序。,1我想要计数第1列到第1列。
+
+paste -s把一大堆行的输入处理成以tab分割的一行。-d,使其以,分割而不是tab。
+
+awk '$1==2376 && $2 ~ /^1.*4$/{print $0}'表示第一个元素等于2376，第二个元素匹配1开头4结尾的所有列。
+
+awk 'BEGIN {rows=0} {rows+=1} END {print rows}'甚至可以样统计行数。或awk 'BEGIN {rows=0} $1==2376 && $2 ~ /^1.*4$/{print $0} {rows+=1} END {print rows}'。
+
+bc是一个计算器。
+
+awk '$1 != 1 {print $1}'|paste -sd+|bc -l把数值非1的所有打印出来并计算总和。
+
+xargs接受若干行输出，把它们转为参数形式。
+
+### 第5讲Command-Line Environment
+
+job control：
+
+sleep 5 睡眠5秒
+
+ctrl+c，发signal叫做SIGINT，interrupt program。
+
+ctrl+\，SIGQUIT，terminate program。
+
+ctrl+z，SIGSTOP signal，say it's suspend。在后台停止状态。bg %1让第1个job继续开始运行。
+
+&，让program在后台运行。
+
+jobs，显示suspended的job。
+
+kill，可以发送任何unix signal。kill -STOP %1，让第1个job停下来。
+
+nohup，即使退出了，或者发出hung up信号，还是会在后台运行。
+
+kill -HUP %1，hung up掉第1个job。
+
+**tmux**：sessions、windows、panes。
+
+ctrl+b(a按完之后松开，再按)d：to detach，从当前tmux session中分离出来。（ad直接exit了，分离是什么？）【快捷键可以改】
+
+tmux a：reattach to the session.
+
+Shell start a process call tmux,tmux start a different process which is the shell we current in.tmux process is seperate from the original shell process.
+
+tmux ls：列出有几个sessions。
+
+ctrl+a，c：create a new window。【ctrl+b，c】
+
+ctrl+a：jump between new tabs.加p键 for previous。加n键 next window。【ctrl+b】
+
+ctrl+d：exited。【有pane时是退出一个pane】
+
+ctrl+b，1：跳转到窗口1.
+
+ctrl+b，"：分割成两个pane。水平
+
+ctrl+b，%：分割成两个pane。竖直、垂直
+
+ctrl+b，上下左右箭头：在pane之间跳转。
+
+ctrl+b，[空格]：is pretty neat,equispace the current ones.let you through different layouts.
+
+ctrl+a，z：you can zoom into this。【ctrl+b，z】把当前窗口放大。
 
 
+
+alias：remap a short sequence of characters to a long sequence。如：alias ll="ls -alh"
+
+alias+command：what the command that you areexecuting actually is。
+
+
+
+configuring your shell more and more.
+
+在~/.bashrc文件中配置，alias ls="ls"，then bash生效。
+
+PS1="> "给前面的prompt换成> 。PS1="\w >> "。前面加上当前work directory。
+
+vim ~/.config/alacritty，可以改变屏幕的配置，比如显示的字体size等。 
+
+github上可以搜：dotfiles，找各种工具相关配置。
+
+ln -s：symlink。链接/符号链接。
+
+ssh let you execute commands remotely.
+
+scp：remote copy files。
+
+rsync：copy file，continue from where it stoped。
+
+shell中的颜色（比如ls）是怎么来的：printf "\e[38;2;255;0;0m haha \e[0m"
+
+logger "message"：往系统日志中添加一条message。journalctl 查看系统日志。
+
+**debugger** is a tool that will wrap around your code and will let you run your code.
+
+Python debugger：python -m ipdb bubble.py
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+不要抱怨，不要嫉妒，不要怨恨。我应该把手头的工作做好【优先级也挺高的】。爱是聪明的，恨是愚蠢的。先拿到今年的再说。
 
 https://www.liaoxuefeng.com/wiki/1016959663602400/1017106984190464
+
+事情是做不完的，分清事物的优先级。底层>抽象。所以先熟悉工具GDB，然后再看习题课，再把os做了。这才是最重要的。
