@@ -1,3 +1,7 @@
+## **动手实践是认识新事物的最好方法**
+
+**less is more.**
+
 1、ssh root@47.100.196.80
 
 mysql -u root -p
@@ -82,9 +86,9 @@ ctrl+g：显示当前编辑文件中当前光标所在行位置以及文件状�
 
 n向下一个方向。N向相反方向。
 
-ctrl+o：回到之前的位置。
+**ctrl+o**：回到之前的位置。【类似于idea里的navigate】
 
-ctrl+i：回到新的位置。（ctrl+o的回退）
+**ctrl+i**：回到新的位置。（ctrl+o的回退）
 
 
 
@@ -188,7 +192,7 @@ less中：&是过滤  想要的字符。
 
 编译：gcc hello.c -o hello
 
-反编译：objdump -d hello > output
+**反编译：objdump -d hello > output**
 
 统计时间：time ./myprog < data |tee output
 
@@ -467,9 +471,128 @@ shell中的颜色（比如ls）是怎么来的：printf "\e[38;2;255;0;0m haha \
 
 logger "message"：往系统日志中添加一条message。journalctl 查看系统日志。
 
+### 第六讲：version control
+
+【？？？】
+
+
+
+### 第七讲：debugging and profiling
+
 **debugger** is a tool that will wrap around your code and will let you run your code.
 
 Python debugger：python -m ipdb bubble.py
+
+gdb --args sleep 20；run开始运行，（调试）；ctrl+c：Program received signal SIGINT, Interrupt。
+
+
+
+Your program is a black box. 
+
+strace ls -l：trace system calls and signals。
+
+pyflakes：simple Python 2 source checker。
+
+writegood：英语语法、用词检查。
+
+
+
+profiling：is how to optimize the code.
+
+time工具，衡量userTime、sysTime。
+
+CPU profiler：cpu分析器、分析工具。
+
+python -m memory_profiler mem.py：mem分析工具。
+
+kernprof -l -v urls.py：时间消耗分析工具。比如：哪一段消耗时间最多。
+
+perf：performance analysis tool for unix.
+
+perf stat stress -c 1：查看当前系统各个性能（cpu utilized、page fault等）。
+
+du：（disk usage）
+
+nudu：interactive version
+
+lsof：list of open file。
+
+### 第八讲：Metaprogramming
+
+printf 'hello'|sha1sum	打印hello的sha 1，hash算法的值。
+aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d  -
+
+systemctl status：可以看到正在运行的所有守护进程。
+
+which或者type都可以找执行文件位置。
+
+/sbin：基本的系统二进制文件，通常是root运行的。
+
+/dev：设备文件，通常是硬件设备接口文件。
+
+/etc：主机特定的系统配置文件。
+
+/home：系统用户的主目录。
+
+/lib：系统软件通用库。
+
+/opt：可选的应用软件。
+
+/sys：包含系统的信息和配置。
+
+/tmp：临时文件（/var/tmp）通常重启时删除。
+
+/usr/只读的用户数据
+
+ - /usr/bin非必须的命令二进制文件。
+ - /usr/sbin非必须的系统二进制文件，通常是由root运行的。
+ - /usr/local/bin用户编译程序的二进制文件。
+
+/var：变量文件，像日志或缓存。
+
+**gdb**：gdb filename（可执行文件）
+
+break lineNum：第几行打断点
+
+run：开始运行
+
+list：查看最近10行代码
+
+print variableName：查看变量的名字
+
+set var=value：给变量赋值
+
+next：下一行
+
+step：下一步。（如果有函数，会走到一个函数里面去。相当于step into。）
+
+gcc main.c -g -Wall -Werror -o main：以gdb更友好的方式编译。-g是可debug，-Wall是输出warning，-Werror是。
+
+setting watchPoint：Setting watchpoints is like asking the debugger to provide you with a running commentary of any changes that happen to the variables. Whenever a change occurs, the program pauses and provides you with the details of the change.：watch <var>。【可以watch多个值，然后continue】
+
+continue：继续，相当于idea的resume键。
+
+man -a：搜索并打开所有man中同名手册。
+
+man -aw：显示所有手册文件的路径。
+
+man -M：指定手册文件的搜索路径。
+
+man -k <关键字>：根据关键字搜索，模糊搜索。
+
+man -f <关键字>：根据关键字精确搜索。
+
+> 比较两个文件的不同：md5sum命令。
+
+> uniq：report or omit repeated lines。
+
+> 系统监控：`jobs`, `ps`, `top`, `kill`, `free`, `demsg`, `lsof`。
+
+
+
+
+
+
 
 
 
@@ -486,7 +609,5 @@ Python debugger：python -m ipdb bubble.py
 
 
 不要抱怨，不要嫉妒，不要怨恨。我应该把手头的工作做好【优先级也挺高的】。爱是聪明的，恨是愚蠢的。先拿到今年的再说。
-
-https://www.liaoxuefeng.com/wiki/1016959663602400/1017106984190464
 
 事情是做不完的，分清事物的优先级。底层>抽象。所以先熟悉工具GDB，然后再看习题课，再把os做了。这才是最重要的。
