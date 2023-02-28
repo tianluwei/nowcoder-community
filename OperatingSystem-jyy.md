@@ -603,7 +603,7 @@ man -f <关键字>：根据关键字精确搜索。
 > 系统监控：`jobs`, `ps`, `top`, `kill`, `free`, `demsg`, `lsof`。
 
 ### 第九讲security and cryptography【https://missing-semester-cn.github.io/2020/security/】
- 
+ hahaha
 
 
 
